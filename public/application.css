@@ -1,0 +1,17 @@
+body {
+    padding-top: 50px;
+
+   
+ }
+
+form#hit_form{    /*to group the buttons together */
+	float: left;
+	margin-right: 10px;
+}
+form#stay_form{   /*to group the buttons together */
+	float:left;
+}
+
+img.card_image {
+	margin: 0 5px 5px 0;
+}
