@@ -22,8 +22,8 @@
               <ul class="nav pull-right">
                 <li><a href="/new_player">Start Over</a></li>
                 <li><a href="/bet">New Round</a></li>
-                <li><a href="/">About us</a></li>
-                <li><a href="/">Contact</a></li>
+                <!--li><a href="/">About us</a></li>
+                <li><a href="/">Contact</a></li-->
               </ul>
             </div>
         </div>
@@ -37,8 +37,8 @@
       <% end %>
       <%if @success %>
         <div class="alert alert-success"><%=@success%></div>
-      <% end %>
-      <%= yield %>
+      <% end %><!--not using actually, moved this logic inside game.erb-->
+      <%= yield %> 
     </div>
 
 

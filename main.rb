@@ -79,7 +79,7 @@ helpers do
   end
 end
 
-# calculate_total([["H", "3"], ["D", "J"]])  not working 
+# put calculate_total([["H", "3"], ["D", "J"]]) here not working, helper method can only be accessed in request handler or view
 
 get '/' do
   if session[:player_name]
@@ -90,7 +90,7 @@ get '/' do
 end
 
 get '/new_player' do
-  # calculate_total([["H", "3"], ["D", "J"]])  works (helper methods only accessible in request scope)
+  # calculate_total([["H", "3"], ["D", "J"]])  works (helper methods only accessible in request scope or view)
   session[:player_pot] = INITIAL_BET_AMOUNT
   erb :new_player
 end
@@ -107,7 +107,7 @@ end
 
 
 get '/bet' do
-  session[:player_bet] = nil
+  #session[:player_bet] = nil  - not needed
   erb :bet
 end
 
@@ -173,7 +173,6 @@ post '/game/player/stay' do
 end
 
 
-
 get '/game/dealer' do
   @show_hit_or_stay_buttons = false
   session[:turn] = "dealer"
@@ -186,10 +185,10 @@ get '/game/dealer' do
   elsif dealer_total > BLACKJACK_AMOUNT
     winner!("Dealer busted at #{dealer_total}.")
   elsif dealer_total >= DEALER_MIN_HIT #17, 18, 19, 20
-    # dealer stays
+    # dealer stays when it's 17, 18, 19, 20
     redirect '/game/compare'
   else
-    # dealer hits
+    # dealer hits - dealer lower that 17 has to hit
     @show_dealer_hit_button = true
   end
 
@@ -201,7 +200,6 @@ post '/game/dealer/hit' do
   session[:dealer_cards] << session[:deck].pop
   redirect '/game/dealer'
 end
-
 
 
 get '/game/compare' do
@@ -225,10 +223,6 @@ end
 get '/game_over' do
   erb :game_over
 end
-
-
-
-
 
 
 # this code is just to show how to show nested template, that's all. no usage for your production

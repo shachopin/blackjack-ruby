@@ -12,31 +12,34 @@
 <% if @play_again %>
 	<p>
 	 <strong>Play again?</strong>
-	 <a href="/bet" class="btn btn-primary">Yes</a>
-	 <a href="/game_over" class="btn">No</a>
+	 <% if (session[:player_pot].to_i == 0) %>
+	  <span>You have no remaining balance</span>
+	 	<a href="/new_player" class="btn btn-warning">Start Over Again</a>
+   <% elsif %>
+	 	<a href="/bet" class="btn btn-primary">Yes</a>
+	 	<a href="/game_over" class="btn">No</a>
+	 <% end %>
 	</p>
 <% end %>
 
-<!--div class="hero-unit"  this is working, but not needed, too much for know-->
-	
-    <div class="well">
-	   <h4>Dealer's cards:</h4> 
-	   <% session[:dealer_cards].each_with_index do |card, i| %>
-		   <% if session[:turn] != "dealer" && i == 0 %>
-		   		<img src="/images/cards/cover.jpg" class="card_image">
-		   <%else%>
-		   		<%=card_image(card) %>
-		   <% end %>
-       <% end %>
-	   <% if @show_dealer_hit_button %>
-       <p>
-	      <h5>Dealer has <%= calculate_total(session[:dealer_cards])%> and will hit.</h5>
-	      <form id="dealer_hit" action='/game/dealer/hit' method='post'>
-	          <input type='submit' class='btn btn-primary' value='Click to deal the dealer one more card &rarr;'>
-	       </form>
-       </p>
-  	  <% end %>
-	
+<!--div class="hero-unit"  this is working, but not needed, too much for now-->
+  <div class="well">
+   <h4>Dealer's cards:</h4> 
+   <% session[:dealer_cards].each_with_index do |card, i| %>
+	   <% if session[:turn] != "dealer" && i == 0 %>
+	   		<img src="/images/cards/cover.jpg" class="card_image">
+	   <%else%>
+	   		<%=card_image(card) %>
+	   <% end %>
+   <% end %>
+   <% if @show_dealer_hit_button %>
+     <p>
+      <h5>Dealer has <%= calculate_total(session[:dealer_cards])%> and will hit.</h5>
+      <form id="dealer_hit" action='/game/dealer/hit' method='post'>
+          <input type='submit' class='btn btn-primary' value='Click to deal the dealer one more card &rarr;'>
+       </form>
+     </p>
+	 <% end %>
 	</div>
 	<br>
 	<div class="well">
@@ -62,7 +65,7 @@ What would <%=session[:player_name]%> like to do?
    
 		<form id="hit_form" action="/game/player/hit" method="post">
 		<!--input type="submit" class = "btn btn-primary" value = "Hit"-->
-		<button type="submit" class="btn btn-success"><span class="icon-thumbs-up icon-white"></span> Hit</button>
+		<button type="button" class="btn btn-success"><span class="icon-thumbs-up icon-white"></span> Hit</button> <!--button in a form is by default typf of submit, to not submit the form can just make it type of button or make the js return false on the button click action , the code has both options-->
 		</form>
 
 		<form id="stay_form" action="/game/player/stay" method="post">

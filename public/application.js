@@ -1,12 +1,11 @@
 $(document).ready(function(){
  // $('#hit_form button').click(function(){
-	//the second call is not ajax call, so we are looking at rendering the game template without a layout, hence without a css
-    //document.ready. do this  is a one-time thing. when the form changes, it doens't bind again
+ //the second call is not ajax call, so we are looking at rendering the game template without a layout, hence without a css
+ //reason is document.ready. do this  is a one-time thing. when the form changes, it doens't bind again
   player_hits();
   player_stays();
   dealer_hits();
 });
-
 
 function player_hits(){
 	$(document).on("click", "#hit_form button", function(){
@@ -21,12 +20,13 @@ function player_hits(){
 		$("#game").replaceWith(msg);  //use replaceWith, not html
 	});
 
-	return false;
+	//return false;
+	//button in a form is by default typf of submit, 
+	//to not submit the form can just make it type of button or make the js return false on the button click action , the code has both options
    
   });
 
 }
-
 
 function player_stays(){
 	$(document).on("click", "#stay_form button", function(){
@@ -46,27 +46,6 @@ function player_stays(){
   });
 
 }
-
-
-function player_stays(){
-	$(document).on("click", "#stay_form button", function(){
-
-	//alert("haha");
-
-	$.ajax({
-		type: "POST",
-		url: "/game/player/stay"
-	}).done(function(msg){
-		//alert(msg);
-		$("#game").replaceWith(msg);  //use replaceWith, not html
-	});
-
-	return false;
-   
-  });
-
-}
-
 
 function dealer_hits(){
 	$(document).on("click", "#dealer_hit input", function(){

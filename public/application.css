@@ -4,8 +4,8 @@ body {
    
  }
 
-form#hit_form{    /*to group the buttons together */
-	float: left;
+form#hit_form{    /*to group the buttons together, no need to set div to inline-block display type, just float should work */
+	float: left;   /* you need float anyway even if set inline-block */
 	margin-right: 10px;
 }
 form#stay_form{   /*to group the buttons together */
